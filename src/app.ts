@@ -1,10 +1,8 @@
 import express from "express"
-import dotenv from 'dotenv';
 import morgan from "morgan"
 import cors from "cors"
+import { appConfigs } from "./configs"
 
-/* -------------------------------- LOAD ENVS ------------------------------- */
-dotenv.config()
 
 const app = express()
 
