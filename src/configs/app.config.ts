@@ -5,7 +5,12 @@ export const appConfigs = {
   APP_PORT: process.env.APP_PORT || "3000",
 
   /* --------------------------------- PRISMA --------------------------------- */
-  DATABASE_URL: process.env.DATABASE_URL || "",
+  DB_TYPE: process.env.DB_TYPE || "postgres",
+  DB_HOST: process.env.DB_HOST || "localhost",
+  DB_PORT: process.env.DB_PORT || 5462,
+  DB_USER_NAME: process.env.DB_USER_NAME || "",
+  DB_PASSWORD: process.env.DB_PASSWORD || "",
+  DB_NAME: process.env.DB_NAME || "",
 
   /* ---------------------------------- HASH ---------------------------------- */
   BCRYPT_SALT: process.env.BCRYPT_SALT || "10",
