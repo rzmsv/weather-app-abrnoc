@@ -1,6 +1,8 @@
-import { WeatherType } from "../../types/weather.type"
+import { WeatherType, UpdateWeatherRequest } from "../../types/weather.type"
 import { AppDataSource } from '../../db/data-source.db';
 import { Weather } from "../../entities/weather.entity";
+import { ErrorResult } from "../../core/error.core"
+import { MessageCode } from "../../core/messages/message-code.message"
 
 
 const weatherRepo = AppDataSource.getRepository(Weather);
@@ -10,13 +12,16 @@ class WeatherRepository {
   constructor() { }
 
   weatherList_repository = async () => {
-
+    const weatherList = weatherRepo.find();
+    return weatherList
   }
 
-  weatherById_repository = async () => {
-
-
+  weatherById_repository = async (id: string) => {
+    const weatherList = weatherRepo.findOneBy({ id: parseInt(id) });
+    return weatherList
   }
+
+
 
   weatherByCityName_repository = async () => {
 
@@ -27,18 +32,33 @@ class WeatherRepository {
       const newWeather = weatherRepo.create(data);
       return await weatherRepo.save(newWeather);
     } catch (error) {
-      console.error(error)
+      throw error
     }
-
-
   }
 
-  weatherUpdateInformation_repository = async () => {
-
+  weatherUpdateInformation_repository = async (id: string, body: UpdateWeatherRequest) => {
+    try {
+      await weatherRepo.update(id, body);
+      const weather = await weatherRepo.findOneBy({ id: parseInt(id) })
+      if (!weather) {
+        throw ErrorResult.notFound("", MessageCode.notFound)
+      }
+      return weather
+    } catch (error) {
+      throw error;
+    }
   }
 
-  weatherDeleteInformation_repository = async () => {
-
+  weatherDeleteInformation_repository = async (id: string) => {
+    try {
+      const weather = await weatherRepo.delete({ id: parseInt(id) });
+      if (weather.affected === 0) {
+        throw ErrorResult.notFound("", MessageCode.notFound);
+      }
+      return weather
+    } catch (error) {
+      throw error
+    }
   }
 
 

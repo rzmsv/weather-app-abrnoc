@@ -3,6 +3,11 @@ export interface AddWeatherTypeRequest {
   country: string
 }
 
+export interface UpdateWeatherRequest {
+  temperature: number;
+  description: string;
+}
+
 export interface CurrentWeatherResponse {
   coord: {
     lon: number;

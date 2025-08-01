@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { asyncHandler } from "../../../../core/asyncHandler.core"
 import WeatherRepository from "../../../../repositories/weather/weather.repository"
 import WeatherService from "../../../../services/weather/waether.service"
 import WeatherController from "../../../../controllers/weather/weather.controller"
@@ -16,14 +17,14 @@ const weatherController = new WeatherController(weatherService)
 /*                          Prefix: /api/v1/weather/                          */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- GET ---------------------------------- */
-router.get("/", weatherController.weatherList_controller)
-router.get("/:id", weatherController.weatherById_controller)
-router.get("/latest/:cityName", weatherController.weatherByCityName_controller)
+router.get("/", asyncHandler(weatherController.weatherList_controller))
+router.get("/:id", asyncHandler(weatherController.weatherById_controller))
+router.get("/latest/:cityName", asyncHandler(weatherController.weatherByCityName_controller))
 /* ---------------------------------- POST ---------------------------------- */
-router.post("/", weatherController.addCurrentWeatherInDB_controller)
+router.post("/", asyncHandler(weatherController.addCurrentWeatherInDB_controller))
 /* ----------------------------------- PUT ---------------------------------- */
-router.put("/:id", weatherController.weatherUpdateInformation_controller)
+router.put("/:id", asyncHandler(weatherController.weatherUpdateInformation_controller))
 /* --------------------------------- DELETE --------------------------------- */
-router.delete("/:id", weatherController.weatherDeleteInformation_controller)
+router.delete("/:id", asyncHandler(weatherController.weatherDeleteInformation_controller))
 
 export default router

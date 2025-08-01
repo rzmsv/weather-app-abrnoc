@@ -24,6 +24,15 @@ class weatherApiClient {
     return response.data
   }
 
+  CoordinatesByCityName = async (cityName: string) => {
+    const response = await this.axiosInstance.get("/geo/1.0/direct", {
+      params: {
+        q: `${cityName}`
+      }
+    })
+    return response.data
+  }
+
   CurrentForcast = async (lat: string, lon: string) => {
     const response = await this.axiosInstance.get("/data/2.5/weather", {
       params: {
