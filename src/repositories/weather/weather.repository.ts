@@ -17,8 +17,15 @@ class WeatherRepository {
   }
 
   weatherById_repository = async (id: string) => {
-    const weatherList = weatherRepo.findOneBy({ id: parseInt(id) });
-    return weatherList
+    try {
+      const weather = await weatherRepo.findOneBy({ id: parseInt(id) })
+      if (!weather) {
+        throw ErrorResult.notFound("", MessageCode.notFound)
+      }
+      return weather
+    } catch (error) {
+      throw error;
+    }
   }
 
 
@@ -60,8 +67,6 @@ class WeatherRepository {
       throw error
     }
   }
-
-
 }
 
 export default WeatherRepository

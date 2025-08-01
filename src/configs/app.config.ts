@@ -16,6 +16,8 @@ export const appConfigs = {
   OPEN_WEATHER_MAP_BASE_URL: process.env.OPEN_WEATHER_MAP_BASE_URL || "",
   OPEN_WEATHER_MAP_APP_ID: process.env.OPEN_WEATHER_MAP_APP_ID || "",
 
+  REDIS_URL: process.env.REDIS_URL || 'redis://localhost:6379',
+
   /* ---------------------------------- HASH ---------------------------------- */
   BCRYPT_SALT: process.env.BCRYPT_SALT || "10",
   /* ----------------------------------- JWT ---------------------------------- */

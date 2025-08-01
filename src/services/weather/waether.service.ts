@@ -1,14 +1,11 @@
 import { AddWeatherTypeRequest, WeatherType, UpdateWeatherRequest } from "../../types/weather.type"
 import weatherApiClient from "../../utils/weatherApiClient.util"
 import WeatherRepository from "../../repositories/weather/weather.repository"
+import WeatherRedis from "../../repositories/weather/weather-redis.repository"
 import { ErrorResult } from "../../core/error.core"
-import { MessageCode } from "../../core/messages/message-code.message"
 
 class WeatherService {
-  private weatherRepo: WeatherRepository
-  constructor(weatherRepo: WeatherRepository) {
-    this.weatherRepo = weatherRepo
-  }
+  constructor(private weatherRepo: WeatherRepository, private weatherRedis: WeatherRedis) { }
 
   weatherList_service = async () => {
     const response = await this.weatherRepo.weatherList_repository()
@@ -16,6 +13,10 @@ class WeatherService {
   }
 
   weatherById_service = async (id: string) => {
+    const getWeatherFromRedis = await this.weatherRedis.weatherById_redis(id)
+    if (getWeatherFromRedis) {
+      return getWeatherFromRedis
+    }
     const response = await this.weatherRepo.weatherById_repository(id)
     return response
   }
@@ -27,13 +28,12 @@ class WeatherService {
   }
 
   addCurrentWeatherInDB_service = async (body: AddWeatherTypeRequest) => {
-
     try {
       const coordinate = await weatherApiClient.CoordinatesByLocationName(body)
       const currentForcast = await weatherApiClient.CurrentForcast(coordinate[0].lat, coordinate[0].lon)
 
       const weather: WeatherType = {
-        cityName: currentForcast[0].name,
+        cityName: currentForcast.name,
         country: currentForcast.sys.country,
         temperature: currentForcast.main.temp,
         description: currentForcast.weather[0].description,
@@ -41,6 +41,9 @@ class WeatherService {
         windSpeed: currentForcast.wind.speed
       }
       const response = await this.weatherRepo.addCurrentWeatherInDB_repository(weather)
+      /* ------------------------------ SET IN REDIS ------------------------------ */
+      await this.weatherRedis.setCurrentWeatherInDB_redis(response, response.id)
+
       return response
     } catch (error) {
       throw ErrorResult.internal(error, null)
@@ -50,6 +53,8 @@ class WeatherService {
   weatherUpdateInformation_service = async (id: string, body: UpdateWeatherRequest) => {
     try {
       const response = await this.weatherRepo.weatherUpdateInformation_repository(id, body)
+      /* ------------------------------ SET IN REDIS ------------------------------ */
+      await this.weatherRedis.setCurrentWeatherInDB_redis(response, response.id)
       return response
     } catch (error) {
       throw error
@@ -58,6 +63,8 @@ class WeatherService {
 
   weatherDeleteInformation_service = async (id: string) => {
     const response = await this.weatherRepo.weatherDeleteInformation_repository(id)
+    /* ---------------------------- DELETE FROM REDIS --------------------------- */
+    await this.weatherRedis.weatherDeleteInformation_redis(id)
     return response
   }
 

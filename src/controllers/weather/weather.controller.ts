@@ -5,10 +5,7 @@ import { BaseController } from "../../core/base.message"
 
 
 class WeatherController {
-  private weatherService: WeatherService
-  constructor(weatherService: WeatherService) {
-    this.weatherService = weatherService
-  }
+  constructor(private weatherService: WeatherService) { }
 
   weatherList_controller = async (req: Request, res: Response, next: NextFunction) => {
     const result = await this.weatherService.weatherList_service()
