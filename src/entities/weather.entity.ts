@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Timestamp } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Weather {
@@ -24,12 +24,12 @@ export class Weather {
   @Column('float')
   windSpeed !: number
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fetchedAt !: Date
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt !: Date
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt !: Date
 }

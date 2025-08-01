@@ -12,6 +12,10 @@ export const appConfigs = {
   DB_PASSWORD: process.env.DB_PASSWORD || "",
   DB_NAME: process.env.DB_NAME || "",
 
+  /* ---------------------------- OPEN WEATHER MAP ---------------------------- */
+  OPEN_WEATHER_MAP_BASE_URL: process.env.OPEN_WEATHER_MAP_BASE_URL || "",
+  OPEN_WEATHER_MAP_APP_ID: process.env.OPEN_WEATHER_MAP_APP_ID || "",
+
   /* ---------------------------------- HASH ---------------------------------- */
   BCRYPT_SALT: process.env.BCRYPT_SALT || "10",
   /* ----------------------------------- JWT ---------------------------------- */

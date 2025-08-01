@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import WeatherService from "../../services/weather/waether.service";
+import { AddWeatherTypeRequest } from "../../types/weather.type"
 
-export class WeatherController {
-  constructor(private weatherService: WeatherService) { }
+class WeatherController {
+  private weatherService: WeatherService
+  constructor(weatherService: WeatherService) {
+    this.weatherService = weatherService
+  }
 
   weatherList_controller = async (req: Request, res: Response, next: NextFunction) => {
     res.send("List of weather from DB.")
@@ -14,12 +18,13 @@ export class WeatherController {
   }
 
   weatherByCityName_controller = async (req: Request, res: Response, next: NextFunction) => {
-    res.send("Weather by city name .")
+    res.json("Weather by city name .")
   }
 
   addCurrentWeatherInDB_controller = async (req: Request, res: Response, next: NextFunction) => {
-    const result = await this.weatherService.addCurrentWeatherInDB_service()
-    res.send(result)
+    const body: AddWeatherTypeRequest = req.body
+    const result = await this.weatherService.addCurrentWeatherInDB_service(body)
+    res.json(result)
   }
 
   weatherUpdateInformation_controller = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,4 +38,4 @@ export class WeatherController {
 
 }
 
-export default new WeatherController(new WeatherService)
+export default WeatherController
