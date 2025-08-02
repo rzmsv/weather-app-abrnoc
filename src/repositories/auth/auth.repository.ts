@@ -1,37 +1,36 @@
-import { WeatherType, UpdateWeatherRequest } from "../../types/weather.type"
+import { SignupUserRequest, SignupUserResponse, LoginUserRequest } from "../../types/user.type"
 import { AppDataSource } from '../../db/data-source.db';
-import { Weather } from "../../entities/weather.entity";
+import { User } from "../../entities/user.entity";
 import { ErrorResult } from "../../core/error.core"
 import { MessageCode } from "../../core/messages/message-code.message"
 
 
-// const weatherRepo = AppDataSource.getRepository(User);
+const authRepo = AppDataSource.getRepository(User);
 
-class WeatherRepository {
+class AuthRepository {
 
   constructor() { }
 
-  signup_repository = async (data: WeatherType) => {
+  signup_repository = async (data: SignupUserRequest): Promise<SignupUserResponse> => {
     try {
-      // const newWeather = weatherRepo.create(data);
-      // return await weatherRepo.save(newWeather);
+      const newUser = authRepo.create(data);
+      return await authRepo.save(newUser);
     } catch (error) {
       throw error
     }
   }
 
-  login_repository = async (id: string, body: UpdateWeatherRequest) => {
+  login_repository = async (body: LoginUserRequest) => {
     try {
-      // await weatherRepo.update(id, body);
-      // const weather = await weatherRepo.findOneBy({ id: parseInt(id) })
-      // if (!weather) {
-      //   throw ErrorResult.notFound("", MessageCode.notFound)
-      // }
-      // return weather
+      const user = await authRepo.findOneBy({ email: body.email })
+      if (!user) {
+        throw ErrorResult.notFound("", MessageCode.userNotFound)
+      }
+      return user
     } catch (error) {
       throw error;
     }
   }
 }
 
-export default WeatherRepository
+export default AuthRepository

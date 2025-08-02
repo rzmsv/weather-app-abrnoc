@@ -21,5 +21,6 @@ export const appConfigs = {
   /* ---------------------------------- HASH ---------------------------------- */
   BCRYPT_SALT: process.env.BCRYPT_SALT || "10",
   /* ----------------------------------- JWT ---------------------------------- */
-  JWT_SECRET: process.env.JWT_SECRET || "secret"
+  JWT_SECRET: process.env.JWT_SECRET || "secret",
+  JWT_EXPIRE_IN: process.env.JWT_EXPIRE_IN || "1h"
 }

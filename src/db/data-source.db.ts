@@ -1,8 +1,8 @@
-import { appConfigs } from "../configs/"
+import { appConfigs } from "../configs/index"
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Weather } from "../entities/weather.entity";
-import { User } from "../entities/auth.entity";
+import { User } from "../entities/user.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",

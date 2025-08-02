@@ -6,14 +6,17 @@ export class User {
   @PrimaryGeneratedColumn()
   id !: number;
 
-  @Column()
-  mobile !: string;
+  @Column({ unique: true })
+  email !: string;
+
+  @Column({ nullable: true })
+  name!: string
+
+  @Column({ nullable: true })
+  lastName!: string
 
   @Column()
-  name !: string
-
-  @Column('float')
-  lastName !: number
+  password!: string
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt !: Date
