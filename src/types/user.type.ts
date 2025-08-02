@@ -1,8 +1,17 @@
-export interface SignupUserRequest {
-  email: string,
-  name: string,
-  lastname: string,
-  password: string
+import { IsString, IsEmail, IsNotEmpty } from "class-validator";
+
+export class SignupUserRequest {
+  @IsString()
+  email!: string;
+
+  @IsString()
+  name!: string
+
+  @IsString()
+  lastname!: string
+
+  @IsString()
+  password!: string
 }
 
 export interface SignupUserResponse {
@@ -11,7 +20,13 @@ export interface SignupUserResponse {
   lastName: string,
 }
 
-export interface LoginUserRequest {
-  email: string,
-  password: string
+export class LoginUserRequest {
+  @IsNotEmpty()
+  @IsString()
+  @IsEmail()
+  email!: string
+
+  @IsNotEmpty()
+  @IsString()
+  password!: string
 }

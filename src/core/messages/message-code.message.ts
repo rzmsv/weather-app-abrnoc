@@ -3,6 +3,8 @@ export const MessageCode = {
   serviceNameWasExist: "serviceNameWasExist",
   idNotValid: "idNotValid",
   notFound: "notFound",
+  userNotFound: "userNotFound",
+  UnAuthorized: "unAuthorized",
   nameRequired: "nameRequired",
   nameType: "nameType",
   lastnameRequired: "lastnameRequired",
@@ -23,5 +25,4 @@ export const MessageCode = {
   countOfIsPassword: "countOfIsPassword",
   isPasswordFieldRequired: "isPasswordFieldRequired",
   domainNotFound: "domainNotFound",
-  userNotFound: "userNotFound",
 };

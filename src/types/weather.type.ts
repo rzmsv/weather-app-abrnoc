@@ -1,11 +1,23 @@
-export interface AddWeatherTypeRequest {
-  cityName: string,
-  country: string
+import { IsString, IsNumber, IsEmail, IsNotEmpty } from "class-validator";
+
+export class AddWeatherTypeRequest {
+  @IsNotEmpty()
+  @IsString()
+  cityName!: string
+
+  @IsNotEmpty()
+  @IsString()
+  country!: string
 }
 
-export interface UpdateWeatherRequest {
-  temperature: number;
-  description: string;
+export class UpdateWeatherRequest {
+
+  @IsNotEmpty()
+  @IsNumber()
+  temperature!: number
+
+  @IsString()
+  description!: string;
 }
 
 export interface CurrentWeatherResponse {
