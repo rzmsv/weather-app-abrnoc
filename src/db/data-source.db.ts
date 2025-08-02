@@ -2,6 +2,7 @@ import { appConfigs } from "../configs/"
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Weather } from "../entities/weather.entity";
+import { User } from "../entities/auth.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: appConfigs.DB_NAME,
   synchronize: true,
   logging: true,
-  entities: [Weather],
+  entities: [Weather, User],
   migrations: [],
   subscribers: [],
 });
