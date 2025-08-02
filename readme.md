@@ -1,5 +1,5 @@
 ## Description
-AAA service
+weather service
 
 ## Running the app
 
