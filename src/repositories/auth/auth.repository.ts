@@ -14,7 +14,9 @@ class AuthRepository {
   signup_repository = async (data: SignupUserRequest): Promise<SignupUserResponse> => {
     try {
       const newUser = authRepo.create(data);
-      return await authRepo.save(newUser);
+      const resp = await authRepo.save(newUser);
+      const { password, ...result } = resp;
+      return result
     } catch (error) {
       throw error
     }

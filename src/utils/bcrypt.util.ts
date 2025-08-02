@@ -12,7 +12,9 @@ class Bcrypt {
   }
 
   comparePassword = async (password: string, hash: string): Promise<boolean> => {
-    return await bcrypt.compare(password, hash);
+    console.log(password)
+    console.log(hash)
+    return await bcrypt.compare(password, hash)
   }
 }
 

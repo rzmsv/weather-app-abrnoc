@@ -15,9 +15,9 @@ class JwtService {
     return jwt.sign(data, this.secretKey, options);
   }
 
-  verify = <T>(token: string): T => {
+  verify = async (token: string) => {
     try {
-      return jwt.verify(token, this.secretKey) as T;
+      return await jwt.verify(token, this.secretKey);
     } catch (err) {
       throw ("Invalid or expired token.");
     }

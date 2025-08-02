@@ -5,6 +5,7 @@ export const MessageCode = {
   notFound: "notFound",
   userNotFound: "userNotFound",
   UnAuthorized: "unAuthorized",
+  passwordWrong: "passwordWrong",
   nameRequired: "nameRequired",
   nameType: "nameType",
   lastnameRequired: "lastnameRequired",

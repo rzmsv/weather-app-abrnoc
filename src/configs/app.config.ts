@@ -3,6 +3,8 @@ dotenv.config()
 export const appConfigs = {
   /* ----------------------------------- APP ---------------------------------- */
   APP_PORT: process.env.APP_PORT || "3000",
+  APP_HOST: process.env.APP_HOST || "localhost",
+  APP_PROTOCOL: process.env.APP_PROTOCOL || "http",
 
   /* --------------------------------- PRISMA --------------------------------- */
   DB_TYPE: process.env.DB_TYPE || "postgres",

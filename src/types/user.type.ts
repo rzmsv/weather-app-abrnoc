@@ -1,7 +1,9 @@
 import { IsString, IsEmail, IsNotEmpty } from "class-validator";
 
 export class SignupUserRequest {
+  @IsNotEmpty()
   @IsString()
+  @IsEmail()
   email!: string;
 
   @IsString()
@@ -10,6 +12,7 @@ export class SignupUserRequest {
   @IsString()
   lastname!: string
 
+  @IsNotEmpty()
   @IsString()
   password!: string
 }

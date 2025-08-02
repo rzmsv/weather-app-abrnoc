@@ -5,6 +5,11 @@
   "scripts": {
     "build": "tsc",
     "app.dev": "nodemon",
+    "dev:db:rm": "docker-compose rm dev-db -f -s -v",
+    "dev:db:up": "docker-compose up dev-db -d",
+    "dev:db:restart": "npm run dev:db:rm && npm run dev:db:up",
+    "dev:app:start": "docker compose -f docker-compose.dev.yml up --build",
+    "prod:app:start": "docker compose -f docker-compose.prod.yml up --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +36,8 @@
     "pg": "^8.16.3",
     "redis": "^4.7.1",
     "reflect-metadata": "^0.2.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.25"
   },
   "devDependencies": {
@@ -40,6 +47,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.1.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

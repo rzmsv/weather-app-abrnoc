@@ -4,6 +4,7 @@
   "idNotValid": "Id not valid",
   "notFound": "Weather not found!",
   "unAuthorized": "You can not access to this page!",
+  "passwordWrong": "Password was wrong!",
   "nameRequired": "Please insert Name!",
   "nameType": "Name type must be string!",
   "lastnameRequired": "Plesae insert lastname!",
